@@ -11,3 +11,4 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/register',[CheckController::class,'register']);
 Route::post('/login',[CheckController::class,'login']);
+Route::post('/logout',[CheckController::class,'logout']);

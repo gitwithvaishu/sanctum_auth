@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Check;
 use Illuminate\Http\Request;
@@ -70,5 +71,15 @@ class CheckController extends Controller
                 ]
             );
         }
+    }
+    public function logout(){
+        Auth::user()->currentAccessToken()->delete();
+
+        return response()->json(
+            [
+                'status'=>1,
+                'Message'=>'Loggedd out successfully'
+            ]
+        );
     }
 }
