@@ -21,7 +21,7 @@ class CheckAuthRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        return[
             'u_name'=>['required','alpha_num','min:8','max:15'],
             'email'=>['required','email','unique:checks'],
             'dob'=>['required','date'],
