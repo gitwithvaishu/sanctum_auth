@@ -11,11 +11,11 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/register',[CheckController::class,'register']);
 Route::post('/login',[CheckController::class,'login']);
-// Route::middleware('auth:sanctum')->post('/logout',[CheckController::class,'logout']);
+Route::middleware('auth:sanctum')->post('/logout',[CheckController::class,'logout']);
 
-Route::group(['middleware' => ['auth:sanctum']],function()
+/* Route::group(['middleware' => ['auth:sanctum']],function()
 {
     Route::post('logout',[CheckController::class,'logout']);
 });
-
+ */
 

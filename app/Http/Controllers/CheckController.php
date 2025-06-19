@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Auth;
-// use App\Http\Controllers\Controller;
-use App\Models\Check;
-// use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+
 use App\Http\Requests\CheckAuthRequest;
 use App\Http\Requests\LoginRequest;
+use App\Models\Check;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+// use App\Http\Controllers\Controller;
+
+
+
 
 class CheckController extends Controller
 {
@@ -33,7 +38,6 @@ class CheckController extends Controller
             ]
         );
 
-        // 7|A6JjxJNqpV2oqJsX1Wk6nhuDvRH17aE1M6gyleqcf9406ffb
     }
 
     public function login(LoginRequest $request){
@@ -76,9 +80,25 @@ class CheckController extends Controller
         } */
     }
 
-    public function logout(){
-        Auth::user()->currentAccessToken()->delete();
 
-        return $this->authSuccess('User logged out Successfully');
-    }
+
+        public function logout(Request $request){
+            $user = $request->user();
+
+            if (!$user || !$user->currentAccessToken()) {
+                return response()->json([
+                    'status' => 401,
+                    'message' => 'Unauthenticated or token not found',
+                        ], 401);
+            }
+
+            $user->currentAccessToken()->delete();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Logged out successfully',
+            ]);
+        }
+
 }
+
